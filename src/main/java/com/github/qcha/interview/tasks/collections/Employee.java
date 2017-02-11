@@ -5,40 +5,43 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Employe {
+public class Employee {
     private String id;
     private String managerId;
-    public Employe(String id, String managerId){
+
+    public Employee(String id, String managerId) {
         this.id = id;
         this.managerId = managerId;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getManagerId() {
-        return managerId;
-    }
-    public static void print(List<Employe> employees){
+    //todo Добавь проверку - ну примеры типа
+    // только в отдельном классе с main методом
+    public static void print(List<Employee> employees) {
+        //fixme не надо использовать StringBuffer тут.
+        // fixme здесь надо юзать StringBuilder
         StringBuffer sb = new StringBuffer();
+        //fixme тип ссылки должен быть всегда более общий
+        //fixme List<String> sBossList = new ArrayList<>();  второй раз String не надо указывать
         ArrayList<String> sBossList = new ArrayList<String>(); //список Боссов, подчиненных которых, мы ищем
         ArrayList<String> sNextBossList = new ArrayList<String>(); //список подчиненных(они же Боссы еще для кого то)
         ArrayList<String> sNextOneBossList = new ArrayList<String>(); //список подчиненных одного какого-то Босса
         int iLevelCount = 1;
         boolean isExistsLower;
         //поиск самого главного
-        for(Employe e : employees) {
+        for (Employee e : employees) {
+            //fixme в Java не делай так
+            //fixme сравнение строк - это equals метод
+            //fixme проверка на пустоту e.getManagerId().isEmpty()
             if (e.getManagerId() == "") {
                 sBossList.add(e.getId());
                 sb.append(e.getId());
             }
         }
 
-        do{ //выполняем, пока есть подчиненные ниже уровнем
+        do { //выполняем, пока есть подчиненные ниже уровнем
             isExistsLower = false;
-            for(String sBoss : sBossList){
-                for(Employe e : employees){
+            for (String sBoss : sBossList) {
+                for (Employee e : employees) {
                     if (e.getManagerId().equals(sBoss)) {
                         sNextOneBossList.add(e.getId());
                         isExistsLower = true;
@@ -51,11 +54,15 @@ public class Employe {
                         return o2.compareTo(o1);
                     }
                 });
-                for(String sNextBoss: sNextOneBossList){
-                    sb.insert(sb.indexOf(sBoss) + sBoss.length(),"\n");
+                for (String sNextBoss : sNextOneBossList) {
+                    sb.insert(sb.indexOf(sBoss) + sBoss.length(), "\n");
+                    //fixme ВСЕГДА ставь кавычки {} - чтобы явно видеть где блок кода заканчивается
+                    // for (int i = 1; i <= iLevelCount; i++) {
+                    //  sb.insert(sb.indexOf(sBoss) + sBoss.length() + 1, "\t");
+                    // }
                     for (int i = 1; i <= iLevelCount; i++) //вставка iLevelCount знаков табуляции
                         sb.insert(sb.indexOf(sBoss) + sBoss.length() + 1, "\t");
-                    sb.insert(sb.indexOf(sBoss) + sBoss.length() + iLevelCount + 1,sNextBoss); //вставка подчиненного, сразу после Босса(и табуляций)
+                    sb.insert(sb.indexOf(sBoss) + sBoss.length() + iLevelCount + 1, sNextBoss); //вставка подчиненного, сразу после Босса(и табуляций)
                 }
                 sNextOneBossList.clear();
 
@@ -63,10 +70,18 @@ public class Employe {
             sBossList.clear();
             sBossList.addAll(sNextBossList);//для следующей итерации новыми боссами являются подчиненные
             sNextBossList.clear();
-            iLevelCount ++;
+            iLevelCount++;
 
-        }while (isExistsLower);
+        } while (isExistsLower);
         System.out.println(sb);
+    }
 
+    //Все геттеры внизу должны быть
+    public String getId() {
+        return id;
+    }
+
+    public String getManagerId() {
+        return managerId;
     }
 }
