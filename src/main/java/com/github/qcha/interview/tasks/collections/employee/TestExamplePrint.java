@@ -1,10 +1,12 @@
-package com.github.qcha.interview.tasks.collections;
+package com.github.qcha.interview.tasks.collections.employee;
+
+import com.github.qcha.interview.tasks.collections.employee.Employee;
 
 import java.util.Arrays;
 
 public class TestExamplePrint {
     public static void main(String[] args){
-        Employee.print(Arrays.asList(
+        Printer.print(Arrays.asList(
                 new Employee("Самый главный босс", ""),
                 new Employee("Босс поменьше1", "Самый главный босс"),
                 new Employee("Маленький босс1", "Босс поменьше1"),

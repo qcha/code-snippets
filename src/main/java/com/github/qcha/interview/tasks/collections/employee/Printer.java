@@ -1,24 +1,10 @@
-package com.github.qcha.interview.tasks.collections;
-
+package com.github.qcha.interview.tasks.collections.employee;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * класс описывает сотрудника компании
- * id - имя сотрудника
- * managerId - имя сотрудника, которому подчиняется данный сотрудник
- */
-public class Employee {
-    private String id;
-    private String managerId;
-
-    public Employee(String id, String managerId) {
-        this.id = id;
-        this.managerId = managerId;
-    }
-
+public class Printer {
     /**
      * вывод на консоль древовидной структуры компании
      * @param employees
@@ -72,14 +58,5 @@ public class Employee {
 
         } while (isExistsLower);
         System.out.println(sb);
-    }
-
-    //Все геттеры внизу должны быть
-    public String getId() {
-        return id;
-    }
-
-    public String getManagerId() {
-        return managerId;
     }
 }
