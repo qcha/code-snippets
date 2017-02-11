@@ -1,9 +1,9 @@
 package com.github.qcha.interview.tasks.collections.employee;
 
 /**
- * класс описывает сотрудника компании
- * id - имя сотрудника
- * managerId - имя сотрудника, которому подчиняется данный сотрудник
+ * Класс описывает сотрудника компании.
+ * id - имя сотрудника.
+ * managerId - имя сотрудника, которому подчиняется данный сотрудник.
  */
 public class Employee {
     private String id;

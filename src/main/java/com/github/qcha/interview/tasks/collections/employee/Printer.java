@@ -6,14 +6,20 @@ import java.util.List;
 
 public class Printer {
     /**
-     * вывод на консоль древовидной структуры компании
-     * @param employees
+     * Вывод на консоль древовидной структуры компании.
+     *
+     * @param employees список сотрудников компании.
      */
     public static void print(List<Employee> employees) {
         StringBuilder sb = new StringBuilder();
-        ArrayList<String> sBossList = new ArrayList<>(); //список Боссов, подчиненных которых, мы ищем
-        ArrayList<String> sNextBossList = new ArrayList<>(); //список подчиненных(они же Боссы еще для кого то)
-        ArrayList<String> sNextOneBossList = new ArrayList<>(); //список подчиненных одного какого-то Босса
+
+        //список Боссов, подчиненных которых, мы ищем
+        List<String> sBossList = new ArrayList<>();
+        //список подчиненных(они же Боссы еще для кого то)
+        List<String> sNextBossList = new ArrayList<>();
+        //список подчиненных одного какого-то Босса
+        List<String> sNextOneBossList = new ArrayList<>();
+
         int iLevelCount = 1;
         boolean isExistsLower;
         //поиск самого главного
@@ -24,7 +30,8 @@ public class Printer {
             }
         }
 
-        do { //выполняем, пока есть подчиненные ниже уровнем
+        //выполняем, пока есть подчиненные ниже уровнем
+        do {
             isExistsLower = false;
             for (String sBoss : sBossList) {
                 for (Employee e : employees) {
@@ -33,30 +40,30 @@ public class Printer {
                         isExistsLower = true;
                     }
                 }
-                sNextBossList.addAll(sNextOneBossList);//формируем список боссов, одного уровня
-                sNextOneBossList.sort(new Comparator<String>() { //сортировка боссов
-                    @Override
-                    public int compare(String o1, String o2) {
-                        return o2.compareTo(o1);
-                    }
-                });
+                //формируем список боссов, одного уровня
+                sNextBossList.addAll(sNextOneBossList);
+                //сортировка боссов
+                sNextOneBossList.sort(Comparator.reverseOrder());
                 for (String sNextBoss : sNextOneBossList) {
                     sb.insert(sb.indexOf(sBoss) + sBoss.length(), "\n");
                     //вставка iLevelCount знаков табуляции
                     for (int i = 1; i <= iLevelCount; i++) {
                         sb.insert(sb.indexOf(sBoss) + sBoss.length() + 1, "\t");
                     }
-                    sb.insert(sb.indexOf(sBoss) + sBoss.length() + iLevelCount + 1, sNextBoss); //вставка подчиненного, сразу после Босса(и табуляций)
+                    //вставка подчиненного, сразу после Босса(и табуляций)
+                    sb.insert(sb.indexOf(sBoss) + sBoss.length() + iLevelCount + 1, sNextBoss);
                 }
                 sNextOneBossList.clear();
 
             }
             sBossList.clear();
-            sBossList.addAll(sNextBossList);//для следующей итерации новыми боссами являются подчиненные
+            //для следующей итерации новыми боссами являются подчиненные
+            sBossList.addAll(sNextBossList);
             sNextBossList.clear();
             iLevelCount++;
 
         } while (isExistsLower);
+
         System.out.println(sb);
     }
 }
