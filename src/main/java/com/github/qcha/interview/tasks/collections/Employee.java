@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * класс описывает сотрудника компании
+ * id - имя сотрудника
+ * managerId - имя сотрудника, которому подчиняется данный сотрудник
+ */
 public class Employee {
     private String id;
     private String managerId;
@@ -14,25 +19,20 @@ public class Employee {
         this.managerId = managerId;
     }
 
-    //todo Добавь проверку - ну примеры типа
-    // только в отдельном классе с main методом
+    /**
+     * вывод на консоль древовидной структуры компании
+     * @param employees
+     */
     public static void print(List<Employee> employees) {
-        //fixme не надо использовать StringBuffer тут.
-        // fixme здесь надо юзать StringBuilder
-        StringBuffer sb = new StringBuffer();
-        //fixme тип ссылки должен быть всегда более общий
-        //fixme List<String> sBossList = new ArrayList<>();  второй раз String не надо указывать
-        ArrayList<String> sBossList = new ArrayList<String>(); //список Боссов, подчиненных которых, мы ищем
-        ArrayList<String> sNextBossList = new ArrayList<String>(); //список подчиненных(они же Боссы еще для кого то)
-        ArrayList<String> sNextOneBossList = new ArrayList<String>(); //список подчиненных одного какого-то Босса
+        StringBuilder sb = new StringBuilder();
+        ArrayList<String> sBossList = new ArrayList<>(); //список Боссов, подчиненных которых, мы ищем
+        ArrayList<String> sNextBossList = new ArrayList<>(); //список подчиненных(они же Боссы еще для кого то)
+        ArrayList<String> sNextOneBossList = new ArrayList<>(); //список подчиненных одного какого-то Босса
         int iLevelCount = 1;
         boolean isExistsLower;
         //поиск самого главного
         for (Employee e : employees) {
-            //fixme в Java не делай так
-            //fixme сравнение строк - это equals метод
-            //fixme проверка на пустоту e.getManagerId().isEmpty()
-            if (e.getManagerId() == "") {
+            if (e.getManagerId().isEmpty()) {
                 sBossList.add(e.getId());
                 sb.append(e.getId());
             }
@@ -56,12 +56,10 @@ public class Employee {
                 });
                 for (String sNextBoss : sNextOneBossList) {
                     sb.insert(sb.indexOf(sBoss) + sBoss.length(), "\n");
-                    //fixme ВСЕГДА ставь кавычки {} - чтобы явно видеть где блок кода заканчивается
-                    // for (int i = 1; i <= iLevelCount; i++) {
-                    //  sb.insert(sb.indexOf(sBoss) + sBoss.length() + 1, "\t");
-                    // }
-                    for (int i = 1; i <= iLevelCount; i++) //вставка iLevelCount знаков табуляции
+                    //вставка iLevelCount знаков табуляции
+                    for (int i = 1; i <= iLevelCount; i++) {
                         sb.insert(sb.indexOf(sBoss) + sBoss.length() + 1, "\t");
+                    }
                     sb.insert(sb.indexOf(sBoss) + sBoss.length() + iLevelCount + 1, sNextBoss); //вставка подчиненного, сразу после Босса(и табуляций)
                 }
                 sNextOneBossList.clear();
