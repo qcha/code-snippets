@@ -11,7 +11,11 @@ class Jobs {
         jobs << (getArgument(arguments) as Job)
     }
 
-    void load(@DelegatesTo(strategy = DELEGATE_FIRST, value = LoadJob) Closure closure) {
-        delegate(new LoadJob(), closure)
+    ImportJob file(@DelegatesTo(strategy = DELEGATE_FIRST, value = ImportJob) Closure closure) {
+        delegate(new ImportJob(), closure)
+    }
+
+    ImportJob db(@DelegatesTo(strategy = DELEGATE_FIRST, value = ImportJob) Closure closure) {
+        delegate(new ImportJob(), closure)
     }
 }
