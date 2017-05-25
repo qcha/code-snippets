@@ -1,4 +1,4 @@
-package com.github.qcha.interview.tasks.collections.employee;
+package qcha.interview.tasks.collections.employee;
 
 /**
  * Класс описывает сотрудника компании.

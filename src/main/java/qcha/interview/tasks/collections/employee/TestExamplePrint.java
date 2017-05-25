@@ -1,6 +1,4 @@
-package com.github.qcha.interview.tasks.collections.employee;
-
-import com.github.qcha.interview.tasks.collections.employee.Employee;
+package qcha.interview.tasks.collections.employee;
 
 import java.util.Arrays;
 
